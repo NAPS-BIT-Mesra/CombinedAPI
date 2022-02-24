@@ -1,0 +1,14 @@
+const express = require("express");
+const userRouter = require("./Routes/UserRoute");
+const imageRoute = require("./Routes/imageRoute"); 
+const mongoSanitize = require("express-mongo-sanitize");
+const xss = require("xss-clean");
+const helmet = require("helmet");
+const app = express();
+app.use(helmet());
+app.use(mongoSanitize());
+app.use(xss());
+app.use(express.json());
+app.use("/api/v1/users", userRouter);
+app.use("/api/v1/image-upload",imageRoute);
+module.exports = app;
